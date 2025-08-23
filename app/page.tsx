@@ -1,148 +1,298 @@
-export default function EntrixLanding() {
+'use client';
+
+import { motion } from 'framer-motion';
+import { Brain, Shield, Zap, Users, Puzzle, Link } from 'lucide-react';
+import { Navbar } from '@/components/navbar';
+import { Footer } from '@/components/footer';
+import { Section } from '@/components/section';
+import { FeatureCard } from '@/components/feature-card';
+import { WaitlistForm } from '@/components/waitlist-form';
+
+export default function HomePage() {
   return (
-    <main className="min-h-screen bg-neutral-950 text-neutral-100">
-      {/* Nav */}
-      <header className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-neutral-950/70">
-        <div className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="h-9 w-9 rounded-2xl bg-gradient-to-br from-indigo-500 via-fuchsia-500 to-cyan-400" />
-            <span className="font-semibold tracking-tight text-lg">Entrix AI</span>
-          </div>
-          <nav className="hidden md:flex items-center gap-6 text-sm text-neutral-300">
-            <a href="#product" className="hover:text-white">Product</a>
-            <a href="#features" className="hover:text-white">Features</a>
-            <a href="#waitlist" className="hover:text-white">Waitlist</a>
-          </nav>
-          <a href="#waitlist" className="rounded-xl bg-white/10 px-4 py-2 text-sm hover:bg-white/20 md:inline-block">Join waitlist</a>
-        </div>
-      </header>
+    <main className="min-h-screen bg-gradient-to-br from-black via-neutral-950 to-black">
+      <Navbar />
 
-      {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 -z-10 opacity-40 [background:radial-gradient(80%_50%_at_50%_0%,theme(colors.indigo.600/.35),transparent_60%),radial-gradient(70%_40%_at_80%_10%,theme(colors.fuchsia.500/.35),transparent_60%),radial-gradient(70%_40%_at_20%_10%,theme(colors.cyan.500/.35),transparent_60%)]" />
-        <div className="mx-auto max-w-6xl px-4 pt-20 pb-16 md:pt-28 md:pb-24">
-          <p className="mb-3 text-xs uppercase tracking-[0.2em] text-neutral-400">Under the Entrix AI umbrella</p>
-          <h1 className="text-3xl leading-tight font-semibold md:text-6xl md:leading-[1.05]">
-            An emotionally intelligent, local‑first co‑pilot for creative flow.
-          </h1>
-          <p className="mt-4 max-w-2xl text-neutral-300 md:text-lg">
-            Budha is our flagship product: a fast, privacy‑first assistant that remembers what works for you—
-            then guides you back to your best self.
+      {/* Hero Section */}
+      <Section className="pt-20 pb-16 md:pt-32 md:pb-24">
+        <div className="relative">
+          {/* Background gradient */}
+          <div className="absolute inset-0 -z-10 opacity-30">
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl" />
+            <div className="absolute top-20 right-1/4 w-96 h-96 bg-fuchsia-500/20 rounded-full blur-3xl" />
+            <div className="absolute top-40 left-1/2 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl" />
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center"
+          >
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              className="mb-6 text-sm uppercase tracking-wider text-neutral-400"
+            >
+              Introducing Budha by Entrix AI
+            </motion.p>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+              className="text-4xl md:text-7xl font-bold leading-tight mb-6 bg-gradient-to-r from-white via-neutral-200 to-neutral-400 bg-clip-text text-transparent"
+            >
+              Your emotionally intelligent AI co-pilot for creative flow
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.8 }}
+              className="text-lg md:text-xl text-neutral-300 max-w-3xl mx-auto mb-10 leading-relaxed"
+            >
+              Budha remembers what works for you, adapts to your emotional state, and guides you
+              back to your most productive self. Local-first, privacy-focused, and designed for
+              creators.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.8 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            >
+              <a
+                href="#waitlist"
+                className="px-8 py-4 bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-cyan-500 rounded-full text-white font-semibold hover:opacity-90 transition-opacity text-lg"
+              >
+                Join Waitlist
+              </a>
+              <a
+                href="#features"
+                className="px-8 py-4 border border-white/20 rounded-full text-white font-semibold hover:bg-white/10 transition-colors text-lg"
+              >
+                Explore Features
+              </a>
+            </motion.div>
+          </motion.div>
+        </div>
+      </Section>
+
+      {/* Social Proof */}
+      <Section className="py-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center"
+        >
+          <blockquote className="text-lg italic text-neutral-300 max-w-2xl mx-auto">
+            "Finally, an AI that understands my creative process and helps me stay in flow instead
+            of breaking it."
+          </blockquote>
+          <p className="mt-4 text-sm text-neutral-400">— Early Beta User</p>
+        </motion.div>
+      </Section>
+
+      {/* Product Highlights */}
+      <Section id="features" className="py-16 md:py-24">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl md:text-5xl font-bold mb-6">Why Budha is Different</h2>
+          <p className="text-lg text-neutral-300 max-w-2xl mx-auto">
+            Built for creators who need an AI that adapts to their unique workflow and emotional
+            patterns.
           </p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-3">
-            <a href="#waitlist" className="rounded-2xl bg-white text-black px-5 py-3 text-sm font-medium">
-              Join the waitlist
-            </a>
-            <a href="#features" className="rounded-2xl border border-white/20 px-5 py-3 text-sm font-medium hover:bg-white/10">
-              Explore features
-            </a>
-          </div>
-        </div>
-      </section>
+        </motion.div>
 
-      {/* Product highlight */}
-      <section id="product" className="mx-auto max-w-6xl px-4 pb-8 md:pb-16">
-        <div className="grid md:grid-cols-2 gap-8 items-center rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10">
-          <div>
-            <h2 className="text-2xl md:text-4xl font-semibold">Budha — Know Thy Mind</h2>
-            <p className="mt-3 text-neutral-300">
-              A layered cognitive stack: Reflex Core for low‑latency actions, Cognition Layer for deep work,
-              and a Dynamic Personality Core that adapts to your state. Powered by Compressed Thought Vectors (CTVs)
-              and an Emotional Recall Engine (ERE).
-            </p>
-            <ul className="mt-6 space-y-2 text-sm text-neutral-300">
-              <li>• Local‑first, sub‑second voice/CLI commands</li>
-              <li>• Emotional memory that recalls your best rituals</li>
-              <li>• Private by design — your data stays with you</li>
-            </ul>
-          </div>
-          <div className="rounded-2xl bg-gradient-to-br from-white/10 to-white/0 p-6 border border-white/10">
-            <div className="aspect-[16/10] w-full rounded-xl bg-neutral-900 grid place-items-center text-neutral-400">
-              <span className="text-sm">(Demo screenshot / video placeholder)</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Features */}
-      <section id="features" className="mx-auto max-w-6xl px-4 py-12 md:py-20">
-        <h3 className="text-xl md:text-3xl font-semibold">Why Entrix AI</h3>
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[
             {
-              title: 'Local‑first speed',
-              body: 'Reflex Core runs lightweight models on‑device for instant responses and offline reliability.'
+              icon: <Zap className="w-6 h-6" />,
+              title: 'Local-First Speed',
+              description:
+                'Sub-second responses with on-device processing. No internet required for core functionality.',
             },
             {
-              title: 'Emotionally aware',
-              body: 'ERE + CTVs let Budha recall mood‑task patterns and suggest the right ritual at the right time.'
+              icon: <Brain className="w-6 h-6" />,
+              title: 'Emotional Memory',
+              description:
+                'Remembers your mood-task patterns and suggests the right approach at the right time.',
             },
             {
-              title: 'Privacy by default',
-              body: 'No dark patterns. Your data is yours. Encryption, memory pruning, and transparent controls.'
+              icon: <Shield className="w-6 h-6" />,
+              title: 'Privacy by Design',
+              description:
+                'Your data stays with you. End-to-end encryption with transparent controls.',
             },
             {
-              title: 'Creator‑grade UX',
-              body: 'A minimal CLI + optional voice that feels alive—not bloated dashboards or gimmicks.'
+              icon: <Users className="w-6 h-6" />,
+              title: 'Creator-Grade UX',
+              description:
+                'Minimal CLI and voice interface designed for flow states, not distractions.',
             },
             {
-              title: 'Extendable modules',
-              body: 'Add nodes for rap writing, coding sessions, journaling, or ADHD‑friendly routines.'
+              icon: <Puzzle className="w-6 h-6" />,
+              title: 'Extendable Modules',
+              description:
+                'Add specialized nodes for writing, coding, journaling, or ADHD-friendly routines.',
             },
             {
-              title: 'Open integrations',
-              body: 'Hooks for VS Code, calendars, and local tools. Keep your stack—Budha adapts to you.'
-            }
-          ].map((f, i) => (
-            <div key={i} className="rounded-2xl border border-white/10 bg-white/5 p-5">
-              <h4 className="font-medium">{f.title}</h4>
-              <p className="mt-2 text-sm text-neutral-300">{f.body}</p>
-            </div>
+              icon: <Link className="w-6 h-6" />,
+              title: 'Open Integrations',
+              description:
+                'Works with VS Code, calendars, and your existing tools. Budha adapts to you.',
+            },
+          ].map((feature, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+            >
+              <FeatureCard {...feature} />
+            </motion.div>
           ))}
         </div>
-      </section>
+      </Section>
 
-      {/* Waitlist */}
-      <section id="waitlist" className="mx-auto max-w-3xl px-4 py-12" aria-labelledby="waitlist-title">
-        <h3 id="waitlist-title" className="text-xl md:text-3xl font-semibold">Be first to try Budha</h3>
-        <p className="mt-2 text-neutral-300">
-          We’re inviting early users in small waves. Drop your email and we’ll reach out with access.
-        </p>
-        <form
-          className="mt-6 grid gap-3 sm:grid-cols-[1fr_auto]"
-          method="POST"
-          action="https://formspree.io/f/your-form-id" // TODO: replace with your Formspree/GForms endpoint
+      {/* Visual Demo */}
+      <Section className="py-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 to-white/0 p-8 md:p-12"
         >
-          <input
-            type="email"
-            required
-            name="email"
-            placeholder="you@company.com"
-            className="w-full rounded-xl bg-white/10 px-4 py-3 text-sm outline-none ring-1 ring-inset ring-white/20 placeholder:text-neutral-400 focus:ring-white/40"
-          />
-          <button
-            type="submit"
-            className="rounded-xl bg-white px-5 py-3 text-sm font-medium text-black hover:opacity-90"
-          >
-            Join waitlist
-          </button>
-        </form>
-        <p className="mt-2 text-xs text-neutral-400">No spam. One‑click unsubscribe.</p>
-      </section>
-
-      {/* Footer */}
-      <footer className="border-t border-white/10">
-        <div className="mx-auto max-w-6xl px-4 py-10 text-sm text-neutral-400">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-            <p>© {new Date().getFullYear()} Entrix AI Innovations Pvt. Ltd. All rights reserved.</p>
-            <div className="flex items-center gap-6">
-              <a href="mailto:hello@entrixai.com" className="hover:text-neutral-200">hello@entrixai.com</a>
-              <a href="#" className="hover:text-neutral-200">Twitter</a>
-              <a href="#" className="hover:text-neutral-200">LinkedIn</a>
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <h3 className="text-2xl md:text-4xl font-bold mb-4">See Budha in Action</h3>
+              <p className="text-neutral-300 mb-6">
+                Experience the seamless integration of emotional intelligence and productivity.
+                Budha learns your patterns and helps you maintain creative momentum.
+              </p>
+              <ul className="space-y-3 text-sm text-neutral-300">
+                <li className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-indigo-400 rounded-full" />
+                  Voice and CLI commands with sub-second response
+                </li>
+                <li className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-fuchsia-400 rounded-full" />
+                  Contextual suggestions based on your emotional state
+                </li>
+                <li className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-cyan-400 rounded-full" />
+                  Seamless integration with your existing workflow
+                </li>
+              </ul>
+            </div>
+            <div className="rounded-2xl bg-gradient-to-br from-neutral-900 to-neutral-800 p-6 border border-white/10">
+              <div className="aspect-video w-full rounded-xl bg-neutral-900 flex items-center justify-center text-neutral-400">
+                <span className="text-sm">Demo Video Coming Soon</span>
+              </div>
             </div>
           </div>
+        </motion.div>
+      </Section>
+
+      {/* How It Works */}
+      <Section id="how-it-works" className="py-16 md:py-24">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl md:text-5xl font-bold mb-6">How Budha Works</h2>
+          <p className="text-lg text-neutral-300 max-w-2xl mx-auto">
+            Three simple steps to transform your creative workflow with emotional intelligence.
+          </p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          {[
+            {
+              step: '01',
+              title: 'Learn Your Patterns',
+              description:
+                'Budha observes your work habits, emotional states, and productivity patterns without being intrusive.',
+            },
+            {
+              step: '02',
+              title: 'Adapt & Suggest',
+              description:
+                'Based on your current state and past successes, Budha suggests the optimal approach for your tasks.',
+            },
+            {
+              step: '03',
+              title: 'Guide Your Flow',
+              description:
+                'Receive contextual guidance that helps you maintain focus and return to productive states faster.',
+            },
+          ].map((item, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
+              viewport={{ once: true }}
+              className="text-center"
+            >
+              <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-r from-indigo-500 to-fuchsia-500 flex items-center justify-center text-xl font-bold">
+                {item.step}
+              </div>
+              <h3 className="text-xl font-semibold mb-4">{item.title}</h3>
+              <p className="text-neutral-300 leading-relaxed">{item.description}</p>
+            </motion.div>
+          ))}
         </div>
-      </footer>
+      </Section>
+
+      {/* Waitlist Section */}
+      <Section id="waitlist" className="py-16 md:py-24">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="max-w-2xl mx-auto text-center"
+        >
+          <h2 className="text-3xl md:text-5xl font-bold mb-6">Be First to Experience Budha</h2>
+          <p className="text-lg text-neutral-300 mb-10">
+            Join our exclusive waitlist for early access. We're inviting creators in small waves to
+            ensure the best experience.
+          </p>
+
+          <WaitlistForm />
+        </motion.div>
+      </Section>
+
+      {/* Mobile Sticky CTA */}
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-black/80 backdrop-blur-md border-t border-white/10 md:hidden z-40">
+        <a
+          href="#waitlist"
+          className="block w-full text-center px-6 py-3 bg-gradient-to-r from-indigo-500 to-fuchsia-500 rounded-full text-white font-semibold"
+        >
+          Join Waitlist
+        </a>
+      </div>
+
+      {/* Add bottom padding for mobile sticky CTA */}
+      <div className="h-20 md:hidden" />
+
+      <Footer />
     </main>
   );
 }
