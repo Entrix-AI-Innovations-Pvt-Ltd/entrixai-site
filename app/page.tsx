@@ -2,11 +2,11 @@
 
 import { motion } from 'framer-motion';
 import { Brain, Shield, Zap, Users, Puzzle, Link } from 'lucide-react';
-import { Navbar } from './components/navbar';
-import { Footer } from './components/footer';
-import { Section } from './components/section';
-import { FeatureCard } from './components/feature-card';
-import { WaitlistForm } from './components/waitlist-form';
+import { Navbar } from '../components/navbar';
+import { Footer } from '../components/footer';
+import { Section } from '../components/section';
+import { FeatureCard } from '../components/feature-card';
+import { WaitlistForm } from '../components/waitlist-form';
 
 export default function HomePage() {
   return (
