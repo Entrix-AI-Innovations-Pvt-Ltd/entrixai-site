@@ -14,70 +14,30 @@ export default function HomePage() {
       <Navbar />
 
       {/* Hero Section */}
-      <Section className="pt-20 pb-16 md:pt-32 md:pb-24">
-        <div className="relative">
-          {/* Background gradient */}
-          <div className="absolute inset-0 -z-10 opacity-30">
-            <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl" />
-            <div className="absolute top-20 right-1/4 w-96 h-96 bg-fuchsia-500/20 rounded-full blur-3xl" />
-            <div className="absolute top-40 left-1/2 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl" />
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center"
+      <Section className="pt-32 pb-20 text-center">
+        <h2 className="text-lg font-semibold text-indigo-400 mb-4">
+          Meet Budha — by Entrix AI
+        </h2>
+        <h1 className="text-5xl md:text-7xl font-bold mb-6">
+          Your emotionally intelligent AI co-pilot for creative flow
+        </h1>
+        <p className="text-xl text-neutral-300 max-w-3xl mx-auto mb-10 leading-relaxed">
+          Entrix AI is building tools that empower creators. Budha is our first product — born from the lived experience of our founder, who has ADHD, and knows what it means to fight for focus, flow, and emotional balance.  
+          Budha adapts to your emotional state, remembers what works for you, and guides you back to your most productive self. Local-first, privacy-focused, and designed with creators in mind.
+        </p>
+        <div className="flex justify-center gap-6">
+          <a
+            href="#waitlist"
+            className="px-8 py-4 bg-gradient-to-r from-indigo-500 to-fuchsia-500 rounded-full text-white font-semibold hover:opacity-90 transition-opacity"
           >
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-              className="mb-6 text-sm uppercase tracking-wider text-neutral-400"
-            >
-              Introducing Budha by Entrix AI
-            </motion.p>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-              className="text-4xl md:text-7xl font-bold leading-tight mb-6 bg-gradient-to-r from-white via-neutral-200 to-neutral-400 bg-clip-text text-transparent"
-            >
-              Your emotionally intelligent AI co-pilot for creative flow
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-              className="text-lg md:text-xl text-neutral-300 max-w-3xl mx-auto mb-10 leading-relaxed"
-            >
-              Budha remembers what works for you, adapts to your emotional state, and guides you
-              back to your most productive self. Local-first, privacy-focused, and designed for
-              creators.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.8 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-            >
-              <a
-                href="#waitlist"
-                className="px-8 py-4 bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-cyan-500 rounded-full text-white font-semibold hover:opacity-90 transition-opacity text-lg"
-              >
-                Join Waitlist
-              </a>
-              <a
-                href="#features"
-                className="px-8 py-4 border border-white/20 rounded-full text-white font-semibold hover:bg-white/10 transition-colors text-lg"
-              >
-                Explore Features
-              </a>
-            </motion.div>
-          </motion.div>
+            Join Waitlist
+          </a>
+          <a
+            href="#features"
+            className="px-8 py-4 border border-neutral-700 rounded-full text-white font-semibold hover:bg-neutral-800 transition-colors"
+          >
+            Explore Features
+          </a>
         </div>
       </Section>
 
