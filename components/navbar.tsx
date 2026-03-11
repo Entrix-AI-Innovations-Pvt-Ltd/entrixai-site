@@ -30,9 +30,9 @@ export function Navbar() {
       <div className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3">
           <img
-            src="/callkeep_favicon.ico"
+            src="/favicon.ico"
             alt="Entrix AI logo"
-            className="h-8 w-8 rounded-lg"
+            className="h-7 w-7"
           />
           <span className="font-semibold tracking-tight text-lg">Entrix AI</span>
         </Link>
