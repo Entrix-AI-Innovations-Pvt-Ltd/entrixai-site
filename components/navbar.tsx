@@ -29,7 +29,11 @@ export function Navbar() {
     >
       <div className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3">
-          <div className="h-9 w-9 rounded-2xl bg-gradient-to-br from-indigo-500 via-fuchsia-500 to-cyan-400" />
+          <img
+            src="/callkeep_favicon.ico"
+            alt="Entrix AI logo"
+            className="h-8 w-8 rounded-lg"
+          />
           <span className="font-semibold tracking-tight text-lg">Entrix AI</span>
         </Link>
 
