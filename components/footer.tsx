@@ -28,6 +28,12 @@ export function Footer() {
 
         <div className="mt-8 pt-8 border-t border-white/10 text-center text-sm text-neutral-400">
           <p>© {new Date().getFullYear()} Entrix AI. All rights reserved.</p>
+          <p>
+            Entrix AI Innovations Pvt Ltd · CIN: U72100JK2025PTC017797
+          </p>
+          <p>
+            Contact: hello@entrixai.com
+          </p>
         </div>
       </div>
     </footer>

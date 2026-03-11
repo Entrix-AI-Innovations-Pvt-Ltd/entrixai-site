@@ -16,46 +16,64 @@ export default function HomePage() {
       {/* Hero Section */}
       <Section className="pt-32 pb-20 text-center">
         <h2 className="text-lg font-semibold text-indigo-400 mb-4">
-          Meet Budha — by Entrix AI
+          Entrix AI presents CallKeep
         </h2>
+
         <h1 className="text-5xl md:text-7xl font-bold mb-6">
-          Your emotionally intelligent AI co-pilot for creative flow
+          Never Miss a Customer Call Again
         </h1>
-        <p className="text-xl text-neutral-300 max-w-3xl mx-auto mb-10 leading-relaxed">
-          Entrix AI is building tools that empower creators. Budha is our first product — born from the lived experience of our founder, who has ADHD, and knows what it means to fight for focus, flow, and emotional balance.  
-          Budha adapts to your emotional state, remembers what works for you, and guides you back to your most productive self. Local-first, privacy-focused, and designed with creators in mind.
+        <p className="text-lg text-neutral-400 mb-6">
+          CallKeep is an AI receptionist built for service businesses.
         </p>
-        <div className="flex justify-center gap-6">
+
+        <p className="text-xl text-neutral-300 max-w-3xl mx-auto mb-14 leading-relaxed">
+          Never miss another customer call.
+
+          CallKeep’s AI receptionist answers incoming customer calls 24/7, captures caller details and service requests, and sends the lead to your team so you can follow up when you're free.
+
+          Built for HVAC companies, plumbers, electricians, locksmiths, and other local service businesses that rely on inbound calls.
+        </p>
+        <div className="mt-12 text-sm md:text-base text-neutral-400 space-y-3 max-w-xl mx-auto">
+          <p>• Missed calls often mean lost jobs</p>
+          <p>• Customers usually call the next company if nobody answers</p>
+          <p>• Sadie, your AI receptionist, answers every call 24/7</p>
+        </div>
+
+        <div className="flex justify-center gap-6 mt-10">
           <a
-            href="#waitlist"
+            href="#demo"
             className="px-8 py-4 bg-gradient-to-r from-indigo-500 to-fuchsia-500 rounded-full text-white font-semibold hover:opacity-90 transition-opacity"
           >
-            Join Waitlist
+            Try the Live Call Demo
           </a>
+
           <a
-            href="#features"
+            href="#how-it-works"
             className="px-8 py-4 border border-neutral-700 rounded-full text-white font-semibold hover:bg-neutral-800 transition-colors"
           >
-            Explore Features
+            How It Works
           </a>
         </div>
-      </Section>
 
-      {/* Social Proof */}
-      <Section className="py-12">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center"
-        >
-          <blockquote className="text-lg italic text-neutral-300 max-w-2xl mx-auto">
-            "Finally, an AI that understands my creative process and helps me stay in flow instead
-            of breaking it."
-          </blockquote>
-          <p className="mt-4 text-sm text-neutral-400">— Early Beta User</p>
-        </motion.div>
+        <div id="demo" className="mt-10 max-w-md mx-auto rounded-2xl border border-white/10 bg-neutral-900/60 p-6">
+          <p className="text-sm text-neutral-400 mb-2">Try the AI Receptionist</p>
+          <p className="text-2xl font-semibold text-white mb-2">📞 +1 (469) 436‑6079</p>
+          <p className="text-sm text-neutral-400">
+            Call Sadie and try asking about AC repair or plumbing service. Currently testing with service businesses in Dallas, TX.
+          </p>
+        </div>
+
+        <div className="mt-10 text-sm text-neutral-500 flex flex-wrap justify-center gap-4">
+          <span>HVAC</span>
+          <span>•</span>
+          <span>Plumbing</span>
+          <span>•</span>
+          <span>Electricians</span>
+          <span>•</span>
+          <span>Locksmiths</span>
+          <span>•</span>
+          <span>Garage Door Repair</span>
+        </div>
       </Section>
 
       {/* Product Highlights */}
@@ -67,10 +85,9 @@ export default function HomePage() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">Why Budha is Different</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-6">Why Service Businesses Use CallKeep</h2>
           <p className="text-lg text-neutral-300 max-w-2xl mx-auto">
-            Built for creators who need an AI that adapts to their unique workflow and emotional
-            patterns.
+            Built for high‑call service businesses that can’t afford to miss leads while on jobs or after hours.
           </p>
         </motion.div>
 
@@ -78,39 +95,39 @@ export default function HomePage() {
           {[
             {
               icon: <Zap className="w-6 h-6" />,
-              title: 'Local-First Speed',
+              title: '24/7 Call Answering',
               description:
-                'Sub-second responses with on-device processing. No internet required for core functionality.',
+                'Every customer call gets answered instantly even after hours or while your team is on jobs.',
             },
             {
               icon: <Brain className="w-6 h-6" />,
-              title: 'Emotional Memory',
+              title: 'Lead Capture',
               description:
-                'Remembers your mood-task patterns and suggests the right approach at the right time.',
+                'The AI collects caller name, phone number, and service details so no lead is ever lost.',
             },
             {
               icon: <Shield className="w-6 h-6" />,
-              title: 'Privacy by Design',
+              title: 'Call Summaries',
               description:
-                'Your data stays with you. End-to-end encryption with transparent controls.',
+                'Receive instant summaries of every conversation so you know exactly what the customer needs.',
             },
             {
               icon: <Users className="w-6 h-6" />,
-              title: 'Creator-Grade UX',
+              title: 'Appointment Requests',
               description:
-                'Minimal CLI and voice interface designed for flow states, not distractions.',
+                'Customers can request service appointments directly through the AI receptionist.',
             },
             {
               icon: <Puzzle className="w-6 h-6" />,
-              title: 'Extendable Modules',
+              title: 'Works With Your Workflow',
               description:
-                'Add specialized nodes for writing, coding, journaling, or ADHD-friendly routines.',
+                'Integrates with your phone system and tools without changing how your business operates.',
             },
             {
               icon: <Link className="w-6 h-6" />,
-              title: 'Open Integrations',
+              title: 'Simple Setup',
               description:
-                'Works with VS Code, calendars, and your existing tools. Budha adapts to you.',
+                'Get your AI receptionist live in minutes with no complicated installation.',
             },
           ].map((feature, index) => (
             <motion.div
@@ -126,46 +143,6 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* Visual Demo */}
-      <Section className="py-16">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 to-white/0 p-8 md:p-12"
-        >
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h3 className="text-2xl md:text-4xl font-bold mb-4">See Budha in Action</h3>
-              <p className="text-neutral-300 mb-6">
-                Experience the seamless integration of emotional intelligence and productivity.
-                Budha learns your patterns and helps you maintain creative momentum.
-              </p>
-              <ul className="space-y-3 text-sm text-neutral-300">
-                <li className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-indigo-400 rounded-full" />
-                  Voice and CLI commands with sub-second response
-                </li>
-                <li className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-fuchsia-400 rounded-full" />
-                  Contextual suggestions based on your emotional state
-                </li>
-                <li className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-cyan-400 rounded-full" />
-                  Seamless integration with your existing workflow
-                </li>
-              </ul>
-            </div>
-            <div className="rounded-2xl bg-gradient-to-br from-neutral-900 to-neutral-800 p-6 border border-white/10">
-              <div className="aspect-video w-full rounded-xl bg-neutral-900 flex items-center justify-center text-neutral-400">
-                <span className="text-sm">Demo Video Coming Soon</span>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      </Section>
-
       {/* How It Works */}
       <Section id="how-it-works" className="py-16 md:py-24">
         <motion.div
@@ -175,9 +152,9 @@ export default function HomePage() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">How Budha Works</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-6">How the AI Receptionist Works</h2>
           <p className="text-lg text-neutral-300 max-w-2xl mx-auto">
-            Three simple steps to transform your creative workflow with emotional intelligence.
+            A simple process that ensures every customer call turns into an opportunity instead of a missed lead.
           </p>
         </motion.div>
 
@@ -185,21 +162,21 @@ export default function HomePage() {
           {[
             {
               step: '01',
-              title: 'Learn Your Patterns',
+              title: 'Customer Calls',
               description:
-                'Budha observes your work habits, emotional states, and productivity patterns without being intrusive.',
+                'A customer calls your business number for a service request.',
             },
             {
               step: '02',
-              title: 'Adapt & Suggest',
+              title: 'AI Answers Instantly',
               description:
-                'Based on your current state and past successes, Budha suggests the optimal approach for your tasks.',
+                'The AI receptionist answers, collects the caller details, and understands their request.',
             },
             {
               step: '03',
-              title: 'Guide Your Flow',
+              title: 'You Get the Lead',
               description:
-                'Receive contextual guidance that helps you maintain focus and return to productive states faster.',
+                'You receive the lead information and can follow up or confirm the job immediately.',
             },
           ].map((item, index) => (
             <motion.div
@@ -229,10 +206,9 @@ export default function HomePage() {
           viewport={{ once: true }}
           className="max-w-2xl mx-auto text-center"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">Be First to Experience Budha</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-6">Start Capturing Every Customer Call 24/7</h2>
           <p className="text-lg text-neutral-300 mb-10">
-            Join our exclusive waitlist for early access. We're inviting creators in small waves to
-            ensure the best experience.
+            Join the early access list to try CallKeep and start capturing every customer call automatically.
           </p>
 
           <WaitlistForm />
@@ -252,6 +228,15 @@ export default function HomePage() {
       {/* Add bottom padding for mobile sticky CTA */}
       <div className="h-20 md:hidden" />
 
+      {/* Business Contact */}
+      <Section className="py-12 text-center">
+        <p className="text-neutral-400 text-sm">
+          Entrix AI Innovations Pvt. Ltd.
+        </p>
+        <p className="text-neutral-500 text-sm">
+          hello@entrixai.com
+        </p>
+      </Section>
       <Footer />
     </main>
   );

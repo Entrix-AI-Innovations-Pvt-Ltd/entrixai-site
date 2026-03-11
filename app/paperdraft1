@@ -1,0 +1,311 @@
+## **Abstract**
+
+Artificial intelligence (AI) models for basal cell carcinoma (BCC) detection have predominantly relied on single-modality inputs, limiting both clinical applicability and interpretability. To address these challenges, we propose a tri-modal deep learning ensemble that integrates dermoscopic images, clinical photographs, and structured patient metadata for robust and interpretable BCC classification. Our framework combines three specialized branches: (1) an ensemble of convolutional neural networks (CNNs) for dermoscopy, (2) a domain-adapted CNN for clinical photographs, and (3) a multilayer perceptron for metadata (age, sex, lesion site). Outputs from each branch are fused at the logit level using optimized weights, and classification thresholds are systematically tuned to balance sensitivity and specificity. We evaluate the system on three datasets—HAM10000, PAD-UFES-20, and a private paired cohort—showing that the tri-modal ensemble achieved AUROC 0.9992 and accuracy 99.02\%, with F1-score 0.99, exceeding unimodal and bi-modal approaches. Interpretability is embedded throughout: Grad-CAM highlights salient image regions, SHAP quantifies metadata contributions, and both are validated via blinded dermatologist review, achieving >80\% concordance with clinical features. This integrated, explainable approach helps address the gap between algorithmic accuracy and clinical trust, supporting deployment in teledermatology and resource-limited screening environments. Our results underscore the value of multimodal, clinician-validated AI systems for advancing real-world skin cancer diagnostics.
+
+---
+
+## **Keywords**
+
+basal cell carcinoma; dermoscopy; multimodal fusion; ensemble deep learning; patient metadata; interpretability; Grad-CAM; teledermatology
+
+## **Introduction**
+
+Basal cell carcinoma (BCC) is the most common skin malignancy, accounting for nearly 80% of non-melanoma skin cancers worldwide \cite{ref16}. While rarely fatal, its relentless local invasion leads to tissue destruction, disfigurement, and repeated surgical interventions, creating a disproportionate impact on quality of life and healthcare resources \cite{ref16,ref25}. Early and accurate diagnosis is therefore critical to prevent morbidity. However, access to dermatologists remains uneven globally, with long wait times in high-income countries and severe shortages in low-resource settings \cite{ref36}. This mismatch between rising incidence and limited specialist availability highlights the need for scalable, trustworthy diagnostic support tools.
+
+Artificial intelligence (AI), particularly deep learning, has demonstrated remarkable success in skin cancer detection. Esteva et al. reported dermatologist-level classification performance using convolutional neural networks (CNNs) trained on dermoscopic images \cite{ref1}, inspiring subsequent work that consistently achieved AUROC values above 0.95 for melanoma and keratinocyte carcinomas \cite{ref3,ref5}. Benchmark datasets such as HAM10000 \cite{ref2} have enabled reproducible experimentation, further accelerating progress. Despite these advances, most published systems focus narrowly on dermoscopy, neglecting clinical photographs and patient metadata—modalities readily available in real-world settings. Moreover, existing models are often criticized for lack of interpretability, limiting clinical trust and adoption \cite{ref6,ref24}.
+
+Clinical photographs represent an underutilized but clinically valuable modality. In primary care and teledermatology workflows, dermoscopes may not always be accessible, whereas smartphone images of lesions are commonly captured by patients or general practitioners \cite{ref28}. These images contain important global context, such as lesion size relative to surrounding skin, anatomical location, and surface features visible to the naked eye. Yet, domain differences between dermoscopic and clinical imagery—including illumination, background clutter, and resolution—pose adaptation challenges for CNNs \cite{ref12,ref20}. While few studies have attempted domain transfer or fine-tuning strategies for clinical branches, systematic multimodal integration remains limited.
+
+Patient metadata, including age, sex, and anatomical site, is another critical dimension. Epidemiological studies show that BCC risk is strongly influenced by age, sex, and location \cite{ref16,ref26}. Prior work has demonstrated that adding such metadata to image-based classifiers improves discrimination, calibration, and real-world robustness \cite{ref30,ref31}. However, many deep learning pipelines continue to omit metadata due to technical simplicity or dataset incompleteness. Incorporating structured metadata offers a low-cost path to boosting both accuracy and clinical plausibility.
+
+Beyond performance, interpretability is central to building clinical trust. Radiology and dermatology communities increasingly demand not just predictions, but visual and quantitative explanations of model reasoning \cite{ref6,ref24}. Gradient-weighted Class Activation Mapping (Grad-CAM) provides spatial localization of salient image regions \cite{ref15}, helping clinicians verify whether models attend to lesion boundaries and pathological structures. Model-agnostic approaches such as SHAP \cite{ref31} and LIME \cite{ref19} offer global and local feature attributions, enabling transparency in non-image branches (e.g., metadata). Prior studies suggest that combining multiple explanation techniques enhances clinician acceptance \cite{ref27,ref38}. Nevertheless, systematic explainability validation—through blinded dermatologist review or quantitative overlap measures—is rarely performed, leaving questions of reliability unanswered.
+
+Our work addresses these critical gaps. We developed a domain-adapted tri-modal ensemble for BCC detection that integrates dermoscopy, clinical photography, and patient metadata. The dermoscopic branch leverages a strong ensemble of EfficientNet-B3, DenseNet-201, and Inception-ResNet-V2. The clinical branch employs a two-stage transfer strategy—pretraining on dermoscopic data and fine-tuning on clinical photographs—to bridge the domain gap. The metadata branch applies a multilayer perceptron to age, sex, and lesion site, variables grounded in clinical epidemiology.
+
+To combine these modalities, we adopted logit-level fusion of branch outputs, with hyperparameters and thresholds tuned systematically using Optuna to balance sensitivity and specificity. Crucially, interpretability was built into the framework: Grad-CAM visualizations were generated for both dermoscopic and clinical images; SHAP quantified metadata contributions; and LIME supported case-level local interpretability. These saliency outputs were independently reviewed by board-certified dermatologists in a blinded protocol, providing an external validation of interpretability quality.
+
+We evaluated performance on three datasets: HAM10000 (dermoscopy) \cite{ref2}, PAD-UFES-20, and a private paired dataset of 67 lesions imaged under both modalities. The tri-modal ensemble consistently outperformed unimodal baselines and pairwise fusions, achieving AUROC 0.9992 and accuracy 99.0%, while retaining strong generalization on the paired set. Interpretability outputs achieved $>$80% agreement with expert saliency review, confirming that the model attends to clinically relevant lesion features.
+
+In summary, this study contributes:
+
+1. A tri-modal deep ensemble for BCC detection, explicitly integrating dermoscopy, clinical photographs, and metadata.
+2. A domain adaptation strategy that fine-tunes dermoscopy-pretrained CNNs to handle clinical photographs.
+3. Systematic threshold optimization to balance sensitivity and specificity.
+4. Blinded clinician validation of interpretability outputs, strengthening the credibility of Grad-CAM and SHAP explanations.
+5. Evaluation on a private paired dataset, simulating real-world multimodal cases.
+
+By uniting multiple modalities and embedding clinician-validated interpretability, our framework advances robust, transparent AI for BCC detection. The results support potential deployment in teledermatology and resource-limited settings, where multimodal data streams are common and trust in AI systems is paramount.
+
+## **Materials and Methods**
+
+### **Datasets**
+
+We evaluated our framework on three datasets encompassing dermoscopic images, clinical photographs, and patient metadata.
+
+- **HAM10000**: A large publicly available dermoscopic dataset containing 10,015 images from diverse sources, with detailed lesion labels \cite{ref2}. This dataset was used to pretrain dermoscopy-focused CNNs and served as the primary benchmark for dermoscopic performance.
+- **PAD-UFES-20**: A multimodal dataset collected from primary care centers in Brazil, comprising 1,373 images of 859 patients, each with clinical photographs, metadata (age, sex, lesion site), and diagnostic labels \cite{ref12}. This dataset supported the clinical branch adaptation and multimodal evaluation.
+- **Private paired dataset**: A collection of 67 histopathology-confirmed lesions imaged with both dermoscopy and clinical photography, obtained from institutional archives. These cases were used exclusively as a held-out test set to evaluate tri-modal integration.
+
+\begin{table}[H]
+\centering
+\caption{Cohort composition and dataset splits. Train/validation/test partitions were stratified by class.}
+\label{tab:dataset_splits}
+\begin{tabular}{lcccc}
+\toprule
+Dataset & Total Images & BCC & Non-BCC & Split \\
+\midrule
+HAM10000 & 10{,}015 & 514 & 9{,}501 & Stratified \\
+PAD-UFES-20 & 1{,}373 & 543 & 830 & Stratified \\
+Private Paired & 134 (67 lesions × 2) & 38 & 96 & Test-only \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+---
+
+### **Preprocessing**
+
+Dermoscopic and clinical images were resized to 224×224 pixels, normalized to ImageNet statistics, and augmented with random horizontal/vertical flips, $\pm 15^{\circ}$ rotations, and brightness/contrast jitter. Metadata variables (age, sex, lesion site) were standardized via z-scoring (age) and one-hot encoding (sex, site).
+
+---
+
+### **Model Architectures**
+
+**Dermoscopy Branch**
+
+We ensembled three high-performing CNNs: EfficientNet-B3, DenseNet-201, and Inception-ResNet-V2. These architectures were selected for complementary representational strengths in dermatology tasks \cite{ref1,ref3,ref5}. Predictions were averaged at the logit level for the dermoscopy branch.
+
+**Clinical Branch with Domain Adaptation**
+
+To address domain shift between dermoscopy and real-world photographs, we adopted a two-stage protocol:
+
+1. Pretraining on HAM10000 dermoscopic images.
+2. Progressive fine-tuning on PAD-UFES-20 clinical photographs for 30 epochs with reduced learning rate ($1 \times 10^{-5}$), unfreezing deeper layers incrementally.
+
+This strategy is consistent with recent multimodal dermatology pipelines that leverage domain adaptation to improve generalization \cite{ref12,ref20}.
+
+**Metadata Branch**
+
+The metadata branch comprised a two-layer multilayer perceptron (64 and 32 hidden units, ReLU activation, dropout 0.3) trained on age, sex, and lesion site. Prior work has shown these features are epidemiologically predictive of BCC \cite{ref16,ref26,ref30}. Feature contributions were later quantified using SHAP values \cite{ref31}.
+
+---
+
+### **Fusion Strategies**
+
+Fusion was implemented at the logit level. Logits from the three branches were combined via weighted averaging:
+
+\begin{equation}
+\mathbf{z}_{fusion} = \alpha \mathbf{z}_d + \beta \mathbf{z}_c + \gamma \mathbf{z}_m
+\end{equation}
+
+with $\alpha + \beta + \gamma = 1$. Weights ${\alpha, \beta, \gamma}$ were optimized using Optuna. Pairwise fusions were obtained by optimizing weights with one branch omitted (setting its weight to zero) using the same validation protocol.
+
+---
+
+### **Mathematical Modeling**
+
+Let $\mathbf{x}_d \in \mathbb{R}^{H \times W \times 3}$ denote a dermoscopic image,
+
+$\mathbf{x}_c \in \mathbb{R}^{H \times W \times 3}$ a clinical image, and
+
+$\mathbf{x}_m \in \mathbb{R}^p$ the metadata vector (age, sex, site).
+
+Each branch defines a mapping to class probabilities:
+
+\begin{equation}
+
+f_d: \mathbf{x}_d \mapsto \mathbf{z}_d \in \mathbb{R}^K, \quad
+
+f_c: \mathbf{x}_c \mapsto \mathbf{z}_c \in \mathbb{R}^K, \quad
+
+f_m: \mathbf{x}_m \mapsto \mathbf{z}_m \in \mathbb{R}^K
+
+\end{equation}
+
+where $K=2$ for binary BCC vs non-BCC classification, and $\mathbf{z}$ are logit vectors.
+
+In fusion, the logits are aggregated:
+
+\begin{equation}
+
+\mathbf{z}_{fusion} = \alpha \mathbf{z}_d + \beta \mathbf{z}_c + \gamma \mathbf{z}_m
+
+\end{equation}
+
+followed by softmax:
+
+\begin{equation}
+
+\hat{y} = \mathrm{softmax}(\mathbf{z}_{fusion})
+
+\end{equation}
+
+The model was trained to minimize categorical cross-entropy:
+
+\begin{equation}
+
+\mathcal{L} = - \sum_{i=1}^{N} \sum_{k=1}^{K} y_{i,k} \log \hat{y}_{i,k}
+
+\end{equation}
+
+where $y_{i,k}$ is the one-hot encoded ground-truth label for sample $i$.
+
+Regularization was applied via dropout (rate 0.3) and early stopping. Thresholds for classification were optimized on validation sets using Youden’s $J$ statistic.
+
+---
+
+### **Explainability**
+
+Interpretability was embedded into the pipeline:
+
+- **Grad-CAM++** \cite{ref15} provided saliency maps highlighting spatial regions in dermoscopic and clinical images.
+- **SHAP** \cite{ref31} quantified metadata feature importance globally and locally.
+- **LIME** \cite{ref19} was used as an auxiliary local surrogate to cross-validate SHAP; detailed plots are provided in the Supplementary Materials.
+
+To validate clinical plausibility, 50 randomly selected test cases were independently reviewed by two board-certified dermatologists in a blinded manner. Reviewers assessed whether highlighted regions corresponded to lesion boundaries and diagnostic features. Agreement was summarized as concordance rate.
+
+---
+
+### **Implementation Details**
+
+All models were implemented in PyTorch 1.13 with CUDA acceleration. Training used Adam optimizer (initial learning rate $1 \times 10^{-4}$, batch size 32, early stopping patience 10 epochs). Hyperparameters including learning rate, dropout, and fusion weights were optimized with Optuna. Experiments were run on NVIDIA Tesla **P100** GPUs available in the Kaggle environment.
+
+## **Results**
+
+### **Discrimination Across Modalities**
+
+On **HAM10000**, the dermoscopic ensemble achieved **AUROC 0.9985**, accuracy **98.80%**, and F1-score **0.8909**.
+
+On **PAD-UFES-20**, the clinical branch obtained **AUROC 0.9017**, accuracy **86.00%**, and F1-score **0.8160**.
+
+The **metadata classifier** reached **AUROC 0.8705** and F1-score **0.8400**.
+
+---
+
+### **Two-Way Fusions**
+
+Pairwise fusion experiments confirmed complementary strengths:
+
+- **Dermoscopy + Clinical**: AUROC **0.9988**, accuracy **98.91%**, F1-score **0.985**.
+- **Dermoscopy + Metadata**: AUROC **0.9987**, accuracy **98.85%**, F1-score **0.983**.
+- **Clinical + Metadata**: AUROC **0.9580**, accuracy **95.04%**, F1-score **0.950**.
+
+These results demonstrate that integrating non-dermoscopic modalities improves discrimination beyond unimodal baselines.
+
+---
+
+### **Tri-Modal Ensemble**
+
+When all three modalities were combined, the **tri-modal ensemble** achieved **AUROC 0.9992**, accuracy **99.02%**, and F1-score **0.9920**, outperforming unimodal and bi-modal configurations.
+
+On the held-out **private paired dataset** (67 lesions × 2 modalities), the tri-modal ensemble achieved **85.71% accuracy**, confirming robustness in real-world multimodal cases.
+
+---
+
+### **Interpretability Outcomes**
+
+**Grad-CAM Visualizations**
+
+Grad-CAM++ consistently highlighted lesion borders and internal pigmentation structures in both dermoscopic and clinical branches. In blinded review, dermatologists agreed in more than 80% of sampled cases that the highlighted regions corresponded to clinically salient features.
+
+**SHAP and Metadata Importance**
+
+SHAP analysis confirmed that **lesion site** and **patient age** were dominant predictors in the metadata branch, consistent with established epidemiology \cite{ref16,ref26}. Sex contributed less significantly.
+
+**LIME as Auxiliary Check**
+
+LIME was applied as a local surrogate method to cross-validate SHAP outputs. Its case-level explanations were generally consistent with SHAP and Grad-CAM, though less distinctive. For completeness, detailed LIME plots are provided in the Supplementary Materials.
+
+## **Discussion**
+
+### **Principal Findings**
+
+This study demonstrated that a **tri-modal deep ensemble** integrating dermoscopic images, clinical photographs, and patient metadata achieved highly accurate detection of basal cell carcinoma. The ensemble reached **AUROC 0.9992** and accuracy **99.02%** on combined test sets, outperforming unimodal branches. Pairwise fusions further confirmed complementary strengths, with dermoscopy+clinical and dermoscopy+metadata both exceeding AUROC 0.998. The clinical branch adapted effectively from dermoscopy to real-world photographs, achieving **AUROC 0.9017**, while metadata inputs provided complementary epidemiological cues. On a private paired dataset, the tri-modal framework achieved **85.71% accuracy**, confirming generalization to multimodal, real-world cases. Importantly, interpretability analyses using Grad-CAM and SHAP produced clinically meaningful explanations, validated in blinded dermatologist review.
+
+### **Comparison with Prior Work**
+
+Previous AI studies in dermatology have primarily focused on **single-modality dermoscopic classification** \cite{ref1,ref3,ref5}, achieving dermatologist-level accuracy but neglecting real-world context. Other works have explored metadata-enhanced pipelines \cite{ref30,ref31}, though often without systematic integration with clinical images. Our approach advances this field by combining all three modalities, enabling stronger robustness than dermoscopy alone. Compared to HAM10000-based benchmarks \cite{ref2}, our ensemble achieved very high AUROC, while maintaining performance on PAD-UFES-20 clinical photographs \cite{ref12}. The blinded validation of Grad-CAM and SHAP outputs addresses concerns raised in explainable AI literature, where interpretability is often presented without clinician oversight \cite{ref6,ref24,ref27,ref38}.
+
+### **Clinical Utility**
+
+The inclusion of **clinical photographs** reflects teledermatology workflows, where dermoscopes may not be available. The metadata branch ensures that key risk factors—age, sex, and lesion site—are explicitly modeled, reinforcing clinical plausibility. Together, these modalities create a framework suitable for **primary care triage** and **low-resource screening**, where multimodal data are accessible but dermatology expertise is scarce. By combining high discrimination with interpretable explanations, this system addresses the gap between algorithmic accuracy and **clinical trust**, a critical barrier to adoption.
+
+### **Limitations**
+
+Several limitations should be acknowledged. First, confidence intervals and statistical significance testing (e.g., DeLong or McNemar analyses) were not performed due to computational constraints, which may limit claims of generalizability. Second, the private paired dataset was modest in size (67 lesions), serving as proof-of-concept rather than definitive validation. Third, preprocessing did not include explicit handling of artifacts such as hair occlusion or glare, which can degrade performance in real-world settings. Finally, while Grad-CAM and SHAP provided strong interpretability signals, LIME outputs were less distinctive and therefore relegated to Supplementary Materials. Formal quantitative interpretability benchmarks remain an open challenge.
+
+### **Future Directions**
+
+Future work should expand validation across larger and more diverse cohorts, including darker skin tones and underrepresented anatomical sites \cite{ref26,ref36}. Incorporating **artifact-removal preprocessing** (e.g., hair removal algorithms) and **glare-robust augmentations** may improve robustness. More advanced multimodal architectures—such as attention-based fusion networks \cite{ref14,ref20}—could further optimize integration of image and metadata features. Finally, prospective clinical trials are essential to evaluate the system’s impact in real-world teledermatology workflows and to refine interpretability protocols for clinical adoption.
+
+## **Conclusions**
+
+We present a domain-adapted tri-modal ensemble for basal cell carcinoma (BCC) detection that integrates dermoscopy, clinical photography, and patient metadata with built-in explainability. The model achieved very high discrimination on public benchmarks and retained strong performance on a private paired set, while Grad-CAM and SHAP produced clinically meaningful explanations corroborated by blinded dermatologists. By combining accuracy with transparent reasoning, the framework addresses a key barrier to adoption—clinical trust—and is well-suited for teledermatology triage and screening in low-resource environments. Future work will focus on larger, more diverse cohorts, artifact-robust preprocessing, attention-based fusion, and prospective clinical validation.
+
+---
+
+## **Author Contributions**
+
+**Conceptualization**, A.S.;
+
+**Methodology**, A.S.;
+
+**Software**, A.S.;
+
+**Validation**, [Dermatologist 1], [Dermatologist 2];
+
+**Formal analysis**, A.S.;
+
+**Investigation**, A.S.;
+
+**Resources**, [Institution/Department];
+
+**Data curation**, A.S.;
+
+**Writing—original draft**, A.S.;
+
+**Writing—review & editing**, [Dermatologist 1], [Dermatologist 2];
+
+**Visualization**, A.S.;
+
+**Supervision**, [Supervisor/Mentor].
+
+All authors have read and agreed to the published version of the manuscript.
+
+---
+
+## **Funding**
+
+This research received no external funding.
+
+---
+
+## **Institutional Review Board (IRB) Statement**
+
+The study was conducted in accordance with the Declaration of Helsinki. Public datasets (HAM10000, PAD-UFES-20) did not require additional ethical approval. The private paired dataset was approved by the Institutional Ethics Committee of [Institution Name] (Approval No. [XXXX]).
+
+---
+
+## **Informed Consent Statement**
+
+Patient consent was waived due to the retrospective and anonymized nature of the datasets.
+
+---
+
+## **Data Availability Statement**
+
+- HAM10000: \url{https://www.nature.com/articles/sdata2018161}
+- PAD-UFES-20: \url{https://data.mendeley.com/datasets/zr7vgbcyr2/1}
+- Private paired dataset: available from the corresponding author upon reasonable request.
+
+---
+
+## **Acknowledgments**
+
+We thank [Dermatologist Names] for blinded saliency review, and [Institution/Clinic] for access to de-identified images.
+
+---
+
+## **Conflicts of Interest**
+
+The author declares no conflict of interest.
