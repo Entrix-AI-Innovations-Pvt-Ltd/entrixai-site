@@ -228,15 +228,30 @@ export default function HomePage() {
       {/* Add bottom padding for mobile sticky CTA */}
       <div className="h-20 md:hidden" />
 
-      {/* Business Contact */}
-      <Section className="py-12 text-center">
-        <p className="text-neutral-400 text-sm">
-          Entrix AI Innovations Pvt. Ltd.
+      {/* Support + Legal */}
+      <Section className="py-12 text-center border-t border-white/10">
+        <p className="text-neutral-300 text-sm mb-2">
+          Questions about CallKeep?
         </p>
-        <p className="text-neutral-500 text-sm">
-          hello@entrixai.com
+        <p className="text-neutral-400 text-sm mb-6">
+          Email our support team: <a href="mailto:hello@entrixai.com" className="underline hover:text-white">hello@entrixai.com</a>
+        </p>
+
+        <div className="flex justify-center gap-6 text-sm text-neutral-500">
+          <a href="/privacy" className="hover:text-white transition-colors">
+            Privacy Policy
+          </a>
+          <span>•</span>
+          <a href="/terms" className="hover:text-white transition-colors">
+            Terms of Service
+          </a>
+        </div>
+
+        <p className="text-neutral-500 text-xs mt-6">
+          © 2026 Entrix AI Innovations Private Limited
         </p>
       </Section>
+
       <Footer />
     </main>
   );

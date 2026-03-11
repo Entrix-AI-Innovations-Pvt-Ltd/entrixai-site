@@ -6,7 +6,7 @@ import { WaitlistForm } from '../../components/waitlist-form';
 
 export const metadata: Metadata = {
   title: 'About - Entrix AI',
-  description: 'Learn about Entrix AI, our mission, vision, and story behind Budha.',
+  description: 'Learn about Entrix AI and CallKeep, the AI receptionist helping service businesses capture every call.',
 };
 
 export default function AboutPage() {
@@ -20,7 +20,7 @@ export default function AboutPage() {
           About Entrix AI
         </h1>
         <p className="text-xl text-neutral-300 max-w-2xl mx-auto mb-10 leading-relaxed">
-          Entrix AI creates emotionally intelligent technology for creators. We believe AI should empower, adapt, and support your unique flow.
+          Entrix AI builds practical AI tools for real-world businesses. Our first product, CallKeep, is an AI receptionist designed to help service companies capture every customer call and never miss potential jobs.
         </p>
       </Section>
 
@@ -30,7 +30,7 @@ export default function AboutPage() {
           Our Mission
         </h2>
         <p className="text-neutral-300 text-lg max-w-3xl mx-auto text-center leading-relaxed">
-          To build AI tools that understand human emotion and creativity, helping you maintain focus, achieve flow, and do your best work—while respecting privacy and autonomy.
+          Our mission is to help service businesses grow by ensuring they never miss an inbound call. CallKeep answers calls 24/7, captures lead details, and delivers qualified customer requests so businesses can focus on doing the actual work.
         </p>
       </Section>
 
@@ -40,7 +40,7 @@ export default function AboutPage() {
           Our Vision
         </h2>
         <p className="text-neutral-300 text-lg max-w-3xl mx-auto text-center leading-relaxed">
-          We imagine a world where technology adapts to your emotional state, supports your creative process, and helps you thrive—never getting in the way of your flow.
+          We envision a future where small service businesses have access to the same intelligent infrastructure as large companies. AI should handle repetitive tasks like answering calls and collecting information so business owners can focus on their craft.
         </p>
       </Section>
 
@@ -50,17 +50,17 @@ export default function AboutPage() {
           Our Story
         </h2>
         <p className="text-neutral-300 text-lg max-w-3xl mx-auto text-center leading-relaxed">
-          Our founder lives with ADHD and deeply understands the struggle for focus and flow. Budha was born from this experience—designed to help creators like you find balance, stay productive, and feel supported by technology that truly understands.
+          CallKeep was created after noticing a simple but costly problem across service industries: missed calls mean lost jobs. Contractors are often on-site, driving, or working with their hands when customers call. CallKeep acts as a reliable AI receptionist that answers every call, captures the customer’s request, and sends the lead to the business.
         </p>
       </Section>
 
       {/* Call to Action */}
       <Section className="py-16 text-center">
         <h2 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-indigo-400 to-fuchsia-500 bg-clip-text text-transparent">
-          Join Our Waitlist
+          Try CallKeep
         </h2>
         <p className="text-neutral-300 text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
-          Be first to experience Budha and help shape the future of emotionally intelligent AI for creators.
+          Experience how CallKeep can answer calls, capture leads, and help service businesses grow without missing opportunities.
         </p>
         <div className="max-w-md mx-auto">
           <WaitlistForm />

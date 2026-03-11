@@ -16,7 +16,8 @@ export default function TermsPage() {
         <p className="text-neutral-300 text-lg md:text-xl text-center max-w-3xl mx-auto leading-relaxed">
           Welcome to Entrix AI. These terms are here to protect both you and us, while keeping
           things clear and respectful. By using our website or products (including{' '}
-          <span className="font-semibold text-white">Budha</span>), you agree to these Terms of Use.
+          <span className="font-semibold text-white">CallKeep</span>, our AI receptionist service),
+          you agree to these Terms of Use.
         </p>
       </Section>
 
@@ -27,7 +28,7 @@ export default function TermsPage() {
             <h2 className="text-2xl font-semibold mb-2">1. Acceptance of Terms</h2>
             <p className="text-neutral-300 leading-relaxed">
               By accessing or using our site or services, you agree to be bound by these Terms. If
-              you do not agree, please do not use Entrix AI or Budha.
+              you do not agree, please do not use Entrix AI or CallKeep.
             </p>
           </section>
 
@@ -61,15 +62,14 @@ export default function TermsPage() {
           <section>
             <h2 className="text-2xl font-semibold mb-2">4. Privacy</h2>
             <p className="text-neutral-300 leading-relaxed">
-              We care deeply about privacy and build local‑first where possible. Our
+              We care deeply about privacy. Our
               <a
                 href="/privacy"
                 className="text-white underline decoration-white/30 underline-offset-4 hover:decoration-white"
               >
-                {' '}
-                Privacy Policy
+                {' '}Privacy Policy
               </a>{' '}
-              explains what we collect and why.
+              explains what information may be processed when callers interact with CallKeep and how that information is used to deliver leads to businesses.
             </p>
           </section>
 
@@ -88,8 +88,7 @@ export default function TermsPage() {
               6. No Medical, Legal, or Mental‑Health Advice
             </h2>
             <p className="text-neutral-300 leading-relaxed">
-              Budha is a productivity and creativity tool. It is not a substitute for professional
-              advice. Always seek a qualified professional when needed.
+              CallKeep is an automated AI receptionist designed to capture customer inquiries and route leads to service businesses. The system may generate summaries or responses based on caller input and should not be relied upon for legal, financial, or professional advice.
             </p>
           </section>
 
