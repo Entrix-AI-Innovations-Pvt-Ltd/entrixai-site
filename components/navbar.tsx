@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -27,10 +28,10 @@ export function Navbar() {
       transition={{ duration: 0.6 }}
     >
       <div className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
+        <Link href="/" className="flex items-center gap-3">
           <div className="h-9 w-9 rounded-2xl bg-gradient-to-br from-indigo-500 via-fuchsia-500 to-cyan-400" />
           <span className="font-semibold tracking-tight text-lg">Entrix AI</span>
-        </div>
+        </Link>
 
         <nav className="hidden md:flex items-center gap-6 text-sm text-neutral-300">
           <a href="#features" className="hover:text-white transition-colors">
