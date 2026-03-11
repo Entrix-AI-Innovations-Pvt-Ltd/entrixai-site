@@ -41,7 +41,7 @@ export default function HomePage() {
 
         <div className="flex justify-center gap-6 mt-10">
           <a
-            href="#demo"
+            href="tel:+14694366079"
             className="px-8 py-4 bg-gradient-to-r from-indigo-500 to-fuchsia-500 rounded-full text-white font-semibold hover:opacity-90 transition-opacity"
           >
             Try the Live Call Demo
@@ -56,8 +56,10 @@ export default function HomePage() {
         </div>
 
         <div id="demo" className="mt-10 max-w-md mx-auto rounded-2xl border border-white/10 bg-neutral-900/60 p-6">
+          <p className="text-xs uppercase tracking-wider text-neutral-500 mb-2">Call now - takes 30 seconds</p>
           <p className="text-sm text-neutral-400 mb-2">Try the AI Receptionist</p>
           <p className="text-2xl font-semibold text-white mb-2">📞 +1 (469) 436‑6079</p>
+          <p className="text-xs text-neutral-500 mb-2">No signup required.</p>
           <p className="text-sm text-neutral-400">
             Call Sadie and try asking about AC repair or plumbing service. Currently testing with service businesses in Dallas, TX.
           </p>
