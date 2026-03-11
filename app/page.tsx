@@ -199,6 +199,73 @@ export default function HomePage() {
         </div>
       </Section>
 
+      {/* Pricing Section */}
+      <Section id="pricing" className="py-16 md:py-24">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl md:text-5xl font-bold mb-6">Simple Pricing</h2>
+          <p className="text-lg text-neutral-300 max-w-2xl mx-auto">
+            One missed plumbing or HVAC job can be worth hundreds of dollars. CallKeep helps ensure every customer call gets answered.
+          </p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+
+          {/* Starter */}
+          <div className="rounded-2xl border border-white/10 bg-neutral-900/60 p-8 text-center">
+            <h3 className="text-xl font-semibold mb-2">Starter</h3>
+            <p className="text-neutral-400 mb-4">Best for solo contractors</p>
+            <p className="text-4xl font-bold mb-6">$49<span className="text-base font-medium text-neutral-400">/mo</span></p>
+            <ul className="text-neutral-300 space-y-2 mb-8">
+              <li>120 minutes included</li>
+              <li>≈ 40–50 calls per month</li>
+              <li>$0.25 / minute overage</li>
+              <li>24/7 AI receptionist</li>
+              <li>Lead capture via SMS & email</li>
+            </ul>
+          </div>
+
+          {/* Growth */}
+          <div className="rounded-2xl border border-indigo-500/40 bg-neutral-900/60 p-8 text-center relative">
+            <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs bg-indigo-500 px-3 py-1 rounded-full">Most Popular</span>
+            <h3 className="text-xl font-semibold mb-2">Growth</h3>
+            <p className="text-neutral-400 mb-4">For busy service teams</p>
+            <p className="text-4xl font-bold mb-6">$99<span className="text-base font-medium text-neutral-400">/mo</span></p>
+            <ul className="text-neutral-300 space-y-2 mb-8">
+              <li>400 minutes included</li>
+              <li>≈ 150–200 calls per month</li>
+              <li>$0.20 / minute overage</li>
+              <li>Call summaries</li>
+              <li>Appointment request capture</li>
+            </ul>
+          </div>
+
+          {/* Professional */}
+          <div className="rounded-2xl border border-white/10 bg-neutral-900/60 p-8 text-center">
+            <h3 className="text-xl font-semibold mb-2">Professional</h3>
+            <p className="text-neutral-400 mb-4">High call volume businesses</p>
+            <p className="text-4xl font-bold mb-6">$199<span className="text-base font-medium text-neutral-400">/mo</span></p>
+            <ul className="text-neutral-300 space-y-2 mb-8">
+              <li>1000 minutes included</li>
+              <li>≈ 400+ calls per month</li>
+              <li>$0.18 / minute overage</li>
+              <li>Priority lead notifications</li>
+              <li>Advanced call insights</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <p className="text-center text-sm text-neutral-500 mt-10">
+          Free onboarding for early customers. We configure CallKeep to match your business.
+        </p>
+      </Section>
+
       {/* Waitlist Section */}
       <Section id="waitlist" className="py-16 md:py-24">
         <motion.div
