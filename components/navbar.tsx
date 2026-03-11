@@ -40,9 +40,9 @@ export function Navbar() {
           <a href="#how-it-works" className="hover:text-white transition-colors">
             How it Works
           </a>
-          <a href="/about" className="hover:text-white transition-colors">
+          <Link href="/about" className="hover:text-white transition-colors">
             About
-          </a>
+          </Link>
         </nav>
 
         <a
