@@ -102,9 +102,27 @@ export default function TermsPage() {
             </p>
           </section>
 
+          {/* Refunds */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-2">8. Refunds</h2>
+            <p className="text-neutral-300 leading-relaxed">
+              For paid subscriptions to CallKeep or other Entrix AI services, refunds may be issued
+              at the discretion of Entrix AI depending on the circumstances of the purchase. If you
+              believe you were charged in error or require assistance with billing, please contact
+              us at{' '}
+              <a
+                href="mailto:hello@entrixai.com"
+                className="text-white underline decoration-white/30 underline-offset-4 hover:decoration-white"
+              >
+                hello@entrixai.com
+              </a>
+              .
+            </p>
+          </section>
+
           {/* Termination */}
           <section>
-            <h2 className="text-2xl font-semibold mb-2">8. Termination</h2>
+            <h2 className="text-2xl font-semibold mb-2">9. Termination</h2>
             <p className="text-neutral-300 leading-relaxed">
               We may suspend or end access to the services if you violate these Terms. You may stop
               using the services at any time.
@@ -113,7 +131,7 @@ export default function TermsPage() {
 
           {/* Changes */}
           <section>
-            <h2 className="text-2xl font-semibold mb-2">9. Changes to These Terms</h2>
+            <h2 className="text-2xl font-semibold mb-2">10. Changes to These Terms</h2>
             <p className="text-neutral-300 leading-relaxed">
               We may update these Terms from time to time. When we do, we will post the revised
               version and update the “Last updated” date below.
@@ -122,7 +140,7 @@ export default function TermsPage() {
 
           {/* Contact */}
           <section>
-            <h2 className="text-2xl font-semibold mb-2">10. Contact</h2>
+            <h2 className="text-2xl font-semibold mb-2">11. Contact</h2>
             <p className="text-neutral-300 leading-relaxed">
               Questions? Contact us at{' '}
               <a
