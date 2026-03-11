@@ -261,6 +261,19 @@ export default function HomePage() {
 
         </div>
 
+        {/* Pricing CTA */}
+        <div className="text-center mt-12">
+          <a
+            href="tel:+14694366079"
+            className="inline-block px-8 py-4 bg-gradient-to-r from-indigo-500 to-fuchsia-500 rounded-full text-white font-semibold hover:opacity-90 transition-opacity"
+          >
+            Try the Live AI Receptionist
+          </a>
+          <p className="text-sm text-neutral-400 mt-3">
+            Call the demo number and talk to Sadie. No signup required.
+          </p>
+        </div>
+
         <p className="text-center text-sm text-neutral-500 mt-10">
           Free onboarding for early customers. We configure CallKeep to match your business.
         </p>
